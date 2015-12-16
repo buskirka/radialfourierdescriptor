@@ -1,0 +1,12 @@
+Name: radialfourierdescriptor
+Version: %%VERSION%%
+Date: %%DATE%%
+Author: Adam Buskirk <adam.buskirk@sdstate.edu>
+Maintainer: Adam Buskirk <adam.buskirk@sdstate.edu>
+Title: Differential-Magnitude and Radius Descriptor
+Description: Implements the Differential-Magnitude and
+  Radius descriptor, a rotation- invariant descriptor
+  for satellite imagery.
+Depends: octave (>= 3.8.2)
+Categories: General
+License: GPLv3+

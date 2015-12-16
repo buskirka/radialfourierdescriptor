@@ -1,0 +1,19 @@
+#!/bin/bash
+
+version=$1
+if [[ ! $(echo ${version} | grep '[0-9]*.[0-9]*.[0-9]*') ]]
+then
+	echo "Error! Input does not seem to be a version number."
+	echo "Input must match '[0-9]*.[0-9]*.[0-9]*'."
+	exit 1
+fi
+
+directory='radialfourierdescriptor-'${version}
+
+cp -r rfd $directory
+
+cat rfd/DESCRIPTION | sed "s/%%VERSION%%/$version/g;s/%%DATE%%/$(date +%F)/g;"'s/, parallel (>= 3\.0\.3)//g' > $directory/DESCRIPTION
+
+tar cvzf $directory.tar.gz $directory
+
+rm -r $directory
