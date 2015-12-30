@@ -1,28 +1,3 @@
-more off;
-
-dir=pwd;
-if( exist('im','var') == 0)
-	printf('Loading Hamina\n');
-	cd([dir,'/Hamina-LC81860182013237LGN00/']); fflush(stdout);
-	[ im{1} , tr{1} ] = loadL8data ;
-	printf('Loading MoncksCorner\n'); fflush(stdout);
-	cd([dir,'/MoncksCorner-LC80160372015204LGN00/']);
-	[ im{2} , tr{2} ] = loadL8data ;
-	printf('Loading MayesCounty\n'); fflush(stdout);
-	cd([dir,'/MayesCounty-LC80270352015281LGN00/']);
-	[ im{3} , tr{3} ] = loadL8data ;
-	printf('Loading TheDalles\n'); fflush(stdout);
-	cd([dir,'/TheDalles-LC80450282015295LGN00/']);
-	[ im{4} , tr{4} ] = loadL8data ;
-	printf('Loading SanAntonio\n'); fflush(stdout);
-	cd([dir,'/SanAntonio-LC80270402015265LGN00/']);
-	[ im{5} , tr{5} ] = loadL8data ;
-	printf('Loading Altoona\n'); fflush(stdout);
-	cd([dir,'/Altoona-LC80260312015258LGN00/']);
-	[ im{6} , tr{6} ] = loadL8data ;
-end
-cd(dir);
-
 bands=[1:7,10,11];
 
 printf('Creating binEcosystem.\n'); fflush(stdout);
@@ -123,7 +98,11 @@ for i=1:size(binEcosystem,1)
 	endfor
 endfor
 
-selection_fitness=min(sort(cell2mat(fitness)(:),'descend')(1:32))
+if( prod(size(fitness)) > 32)
+    selection_fitness=min(sort(cell2mat(fitness)(:),'descend')(1:32))
+else
+    selection_fitness=0;
+endif
 tic;
 binEcosystem2=binEcosystem;
 existsLiveCell=false;
