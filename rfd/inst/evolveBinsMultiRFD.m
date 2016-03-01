@@ -1,8 +1,8 @@
 bands=[1:7,10,11];
 
-printf('Creating binEcosystem.\n'); fflush(stdout);
-binsize=input('Size? > ');
 if( exist('binEcosystem','var') == 0)
+    printf('Creating binEcosystem.\n'); fflush(stdout);
+    binsize=input('Size? > ');
 	printf('Creating a binEcosystem (load one first to use it instead)\n');
 	for i=1:binsize;
 	for j=1:binsize;
