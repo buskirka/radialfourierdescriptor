@@ -28,9 +28,9 @@ function [ LandsatRawData , training ] = loadL8data ()
 		LandsatRawData{i}=imread(str)(:,:,1) ; 
 	endparfor
 
-	C=imread([sceneID,"_B8.TIF"]);
-	LandsatRawData{8}=C(1:2:rows(C),1:2:columns(C),1);
-	clear C
+	%C=imread([sceneID,"_B8.TIF"]);
+	LandsatRawData{8}=[0];%C(1:2:rows(C),1:2:columns(C),1);
+	%clear C
 
 	pc.UL=[1,1];
 	pc.LR=size(LandsatRawData{4});
