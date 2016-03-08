@@ -94,7 +94,7 @@ for i=1:size(binEcosystem,1)
                     printf(['No class 128 in ',num2str(imscan),'\n'])
                     trueNeg{i,j,imscan}=1;
                 endif
-				printf([num2str(sqrt(truePos{i,j,imscan}*trueNeg{i,j,imscan})),' (',truePos{i,j,imscan},',',trueNeg{i,j,imscan},')\n']);
+				printf([num2str(sqrt(truePos{i,j,imscan}*trueNeg{i,j,imscan})),' (',num2str(truePos{i,j,imscan}),',',num2str(trueNeg{i,j,imscan}),')\n']);
 				fitness{i,j} += sqrt(truePos{i,j,imscan} * trueNeg{i,j,imscan}) / length(im); 
 			endfor
 			printf(['Fitness determined to be: ',num2str(fitness{i,j}),'\n']); fflush(stdout);
