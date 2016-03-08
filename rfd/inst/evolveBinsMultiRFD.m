@@ -84,12 +84,14 @@ for i=1:size(binEcosystem,1)
                 if( max(max(tr{imscan}==255)) )
     				truePos{i,j,imscan}=mean( svlp{imscan}(pos) == predlab(pos) ); 
                 else
+                    printf(['No class 255 in ',num2str(imscan),'\n'])
                     truePos{i,j,imscan}=1;
                 endif
 				neg=find(svlp{imscan}==128);
                 if( max(max(tr{imscan}==128)) )
 				    trueNeg{i,j,imscan}=mean( svlp{imscan}(neg) == predlab(neg) );
                 else
+                    printf(['No class 128 in ',num2str(imscan),'\n'])
                     trueNeg{i,j,imscan}=1;
                 endif
 				printf([num2str(sqrt(truePos{i,j,imscan}*trueNeg{i,j,imscan})),'\n']);
