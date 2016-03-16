@@ -56,6 +56,7 @@ for i=1:size(binEcosystem,1)
 			fitness{i,j}=0;
 			for selscan=1:length(samplesel)
 				svl=[]; svd=[];
+                svltest=[]; svdtest=[];
 				for imscan2=1:length(im)
 					if( samplesel{selscan}(imscan2)==1 )
 						svl=[svl;svlp{imscan2}];
