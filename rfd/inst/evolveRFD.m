@@ -17,6 +17,16 @@ if( exist('binEcosystem','var') == 0 )
 	endfor
 end
 
+%Construct sample selections for this iteration
+clear samplesel;
+samplesel=cell(20,1);
+for i=1:20 ;
+    samplesel{i}=(rand(size(tr))<0.7);
+    while( (sum(samplesel{i}) < 0.6) || (sum(1-samplesel{i}) < 3) )
+        samplesel{i}=(rand(size(tr))<0.7);
+    endwhile
+endfor
+
 testdata=randi([1,length(im)]);
 
 %Compute fitness of bins
@@ -44,16 +54,16 @@ for i=1:size(binEcosystem,1)
 			toc;
 
 			fitness{i,j}=0;
-			for imscan=1:length(im)
+			for selscan=1:length(samplesel)
 				svl=[]; svd=[];
 				for imscan2=1:length(im)
-					if( imscan ~= imscan2 )
+					if( samplesel{selscan}(imscan2)==1 )
 						svl=[svl;svlp{imscan2}];
 						svd=[svd;svdp{imscan2}];
 					else
-						% For optimization's sake, we want to see whether or not we can even detect the originally trained data.
-						%svl=[svl;svlp{imscan2}];
-						%svd=[svd;svdp{imscan2}];
+						% This gives us data to test against.
+						svltest=[svltest;svlp{imscan2}];
+						svdtest=[svdtest;svdp{imscan2}];
 					endif
 				endfor
 				
@@ -78,23 +88,13 @@ for i=1:size(binEcosystem,1)
 				opt=['-h 0 -q -w128 ',num2str(binEcosystem{i,j}.costs(1)),' -w255 ',num2str(binEcosystem{i,j}.costs(2))];
 				svm = svmtrain(double(svl),double(svd),opt);
 			
-				predlab=svmpredict( double(svlp{imscan}), double(svdp{imscan}), svm , '-q');
-				pos=find(svlp{imscan}==255);
-                if( max(max(tr{imscan}==255))>0 )
-    				truePos{i,j,imscan}=mean( svlp{imscan}(pos) == predlab(pos) ); 
-                else
-                    printf(['No class 255 in ',num2str(imscan),'\n'])
-                    truePos{i,j,imscan}=1;
-                endif
-				neg=find(svlp{imscan}==128);
-                if( max(max(tr{imscan}==128))>0 )
-				    trueNeg{i,j,imscan}=mean( svlp{imscan}(neg) == predlab(neg) ); 
-                else
-                    printf(['No class 128 in ',num2str(imscan),'\n'])
-                    trueNeg{i,j,imscan}=1;
-                endif
-				printf([num2str(sqrt(truePos{i,j,imscan}*trueNeg{i,j,imscan})),' (',num2str(truePos{i,j,imscan}),',',num2str(trueNeg{i,j,imscan}),')\n']);
-				fitness{i,j} += sqrt(truePos{i,j,imscan} * trueNeg{i,j,imscan}) / length(im); 
+				predlab=svmpredict( double(svltest), double(svdtest), svm , '-q');
+				pos=find(svltest==255);
+    		    truePos{i,j,selscan}=min(1,mean( svltest(pos) == predlab(pos) )); 
+				neg=find(svltest==128);
+		        trueNeg{i,j,selscan}=min(1,mean( svltest(neg) == predlab(neg) )); 
+				printf([num2str(sqrt(truePos{i,j,selscan}*trueNeg{i,j,selscan})),' (',num2str(truePos{i,j,selscan}),',',num2str(trueNeg{i,j,selscan}),')\n']);
+				fitness{i,j} += sqrt(truePos{i,j,selscan} * trueNeg{i,j,selscan}) / length(samplesel); 
 			endfor
 			printf(['Fitness determined to be: ',num2str(fitness{i,j}),'\n']); fflush(stdout);
 		elseif(binEcosystem{i,j}.live>1)
