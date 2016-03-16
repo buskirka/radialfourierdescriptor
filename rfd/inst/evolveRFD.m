@@ -70,7 +70,7 @@ for i=1:size(binEcosystem,1)
 				
 				classcount=[unique(svl),arrayfun(@(x) sum(svl==x),unique(svl))];
 				if( max( classcount(:,2) ) > 3 * min( classcount(:,2) ) )
-					warning('Data set highly imbalanced! Automatically undersampling!');
+					warning('Training data set highly imbalanced! Automatically undersampling!');
 					%For heavily imbalanced datasets, undersample the larger set.
 					minimum_class=min(classcount(:,2));
 					svd2=[];
@@ -85,10 +85,29 @@ for i=1:size(binEcosystem,1)
 					svl=svl2;
 				endif
 				
+                classcount=[unique(svltest),arrayfun(@(x) sum(svltest==x),unique(svltest))];
+				if( max( classcount(:,2) ) > 3 * min( classcount(:,2) ) )
+					warning('Testing set highly imbalanced! Automatically undersampling!');
+					%For heavily imbalanced datasets, undersample the larger set.
+					minimum_class=min(classcount(:,2));
+					svd2=[];
+					svl2=[];
+					for class_label=unique(svl)'
+						list=find( svltest == class_label );
+						[~,shufind]=sort(rand(1,length(list)));
+						svd2=[svd2;svdtest(list(shufind(1:min(end,minimum_class))),:)];
+						svl2=[svl2;svltest(list(shufind(1:min(end,minimum_class))))];
+					endfor
+					svdtest=svd2;
+					svltest=svl2;
+				endif
+				
 				printf([mat2str(size(svd)),'\n']);
 				opt=['-h 0 -q -w128 ',num2str(binEcosystem{i,j}.costs(1)),' -w255 ',num2str(binEcosystem{i,j}.costs(2))];
 				svm = svmtrain(double(svl),double(svd),opt);
-			
+			    
+
+				printf([mat2str(size(svdtest)),'\n']);
 				predlab=svmpredict( double(svltest), double(svdtest), svm , '-q');
 				pos=find(svltest==255);
     		    truePos{i,j,selscan}=min(1,mean( svltest(pos) == predlab(pos) )); 
