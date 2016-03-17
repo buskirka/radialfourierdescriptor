@@ -36,6 +36,6 @@ function featurearray = RadialFourierDescriptor ( radius , im , sinusoids = 20 )
 			subconv=cat(3,subconv,conv2(im,convmat,'same'));
 		endif
 	endfor
-	list=(fft(subconv,size(subconv,3),3))(:,:,1:min(sinusoids,bins));
+	list=(fft(subconv,size(subconv,3),3))(:,:,1:min(sinusoids,1+bins/2));
 	featurearray=abs(list);
 endfunction 
