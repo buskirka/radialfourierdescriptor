@@ -19,8 +19,8 @@ end
 
 %Construct sample selections for this iteration
 clear samplesel;
-samplesel=cell(20,1);
-for i=1:20 ;
+samplesel=cell(10,1);
+for i=1:length(samplesel) ;
     samplesel{i}=(rand(size(tr))<0.7);
     while( (sum(samplesel{i}) < 0.6) || (sum(1-samplesel{i}) < 3) )
         samplesel{i}=(rand(size(tr))<0.7);
