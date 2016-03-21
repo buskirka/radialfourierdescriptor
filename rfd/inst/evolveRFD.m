@@ -22,11 +22,11 @@ clear samplesel;
 samplesel=cell(10,1);
 testingsel=cell(size(samplesel));
 for i=1:length(samplesel) ;
-    samplesel{i}=(rand(size(tr))<0.7);
-    testingsel{i}=(rand(size(tr))<0.7) .* (1-samplesel{i});
+    samplesel{i}=(rand(size(tr))<0.4);
+    testingsel{i}=(rand(size(tr))<0.4) .* (1-samplesel{i});
     while( (sum(samplesel{i}) < 30) || (sum(testingsel{i}) < 5) )
-        samplesel{i}=(rand(size(tr))<0.7);
-        testingsel{i}=(rand(size(tr))<0.7) .* (1-samplesel{i});
+        samplesel{i}=(rand(size(tr))<0.4);
+        testingsel{i}=(rand(size(tr))<0.4) .* (1-samplesel{i});
     endwhile
     samplesel{i}
     testingsel{i}
