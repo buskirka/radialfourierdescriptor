@@ -20,14 +20,17 @@ end
 %Construct sample selections for this iteration
 clear samplesel;
 samplesel=cell(10,1);
+testingsel=cell(size(samplesel));
 for i=1:length(samplesel) ;
     samplesel{i}=(rand(size(tr))<0.7);
-    while( (sum(samplesel{i}) < 0.6) || (sum(1-samplesel{i}) < 3) )
+    testingsel{i}=(rand(size(tr))<0.7) .* (1-samplesel{i});
+    while( (sum(samplesel{i}) < 30) || (sum(testingsel{i}) < 5) )
         samplesel{i}=(rand(size(tr))<0.7);
+        testingsel{i}=(rand(size(tr))<0.7) .* (1-samplesel{i});
     endwhile
+    samplesel{i}
+    testingsel{i}
 endfor
-
-testdata=randi([1,length(im)]);
 
 %Compute fitness of bins
 for i=1:size(binEcosystem,1)
@@ -58,10 +61,10 @@ for i=1:size(binEcosystem,1)
 				svl=[]; svd=[];
                 svltest=[]; svdtest=[];
 				for imscan2=1:length(im)
-					if( samplesel{selscan}(imscan2)==1 )
+					if( samplesel{selscan}(imscan2) == 1 )
 						svl=[svl;svlp{imscan2}];
 						svd=[svd;svdp{imscan2}];
-					else
+					elseif( testingsel{selscan}(imscan2) == 1 )
 						% This gives us data to test against.
 						svltest=[svltest;svlp{imscan2}];
 						svdtest=[svdtest;svdp{imscan2}];
@@ -124,6 +127,7 @@ for i=1:size(binEcosystem,1)
 			printf(['Skipped dead cell ',mat2str([i,j]),'\n']); fflush(stdout);
 			fitness{i,j}=0;
 		endif
+        toc
 	endfor
 endfor
 
