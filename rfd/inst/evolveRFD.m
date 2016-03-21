@@ -119,6 +119,8 @@ for i=1:size(binEcosystem,1)
 				printf([num2str(sqrt(truePos{i,j,selscan}*trueNeg{i,j,selscan})),' (',num2str(truePos{i,j,selscan}),',',num2str(trueNeg{i,j,selscan}),')\n']);
 				fitness{i,j} += sqrt(truePos{i,j,selscan} * trueNeg{i,j,selscan}) / length(samplesel); 
 			endfor
+            % Punish excess of bins:
+            fitness{i,j} = fitness{i,j} * min( 1 , 0.999^size(svd,2) );
 			printf(['Fitness determined to be: ',num2str(fitness{i,j}),'\n']); fflush(stdout);
 		elseif(binEcosystem{i,j}.live>1)
 			printf(['Skipped maximal cell ',mat2str([i,j]),'\n']); fflush(stdout);
