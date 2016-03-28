@@ -1,5 +1,5 @@
 % Neighborhood
-function retval = neighborhood (array, point, radius)
+function varargout = neighborhood (array, point, radius)
 	if( radius < 0 )
 		error('Radius must be nonnegative!')
 	end
@@ -8,5 +8,7 @@ function retval = neighborhood (array, point, radius)
 	xMax=min( point(1)+radius , size(array,1) );
 	yMin=max( point(2)-radius , 1 );
 	yMax=min( point(2)+radius , size(array,2) );
-	retval=double(array(xMin:xMax, yMin:yMax));
+	varargout{1}=double(array(xMin:xMax, yMin:yMax));
+    varargout{2}{1}=[xMin:xMax];
+    varargout{2}{2}=[yMin:yMax];
 end

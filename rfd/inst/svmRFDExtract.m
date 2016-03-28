@@ -32,10 +32,16 @@ function varargout = svmRFDExtract( varargin )
 
 	h=[];
 	for layer=1:length(rbins)
-		mmrl=ceil(max(max(rbins{layer})));
+        if( radius < inf)
+    		mmrl=ceil(max(max(rbins{layer})));
+        else
+            mmrl=0;
+        endif
 		for rbin=rbins{layer};
 			newbatch=RadialFourierDescriptor(rbin',neighborhood(imRawData{layer},point,radius+mmrl),sines(layer));
-			newbatch=newbatch((1+mmrl):(end-mmrl),(1+mmrl):(end-mmrl),:);
+			if( radius < inf )
+                newbatch=newbatch((1+mmrl):(end-mmrl),(1+mmrl):(end-mmrl),:);
+            endif
 			h=cat(3,h,newbatch);
 		endfor
 	endfor
