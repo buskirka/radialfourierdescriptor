@@ -30,6 +30,14 @@ function varargout = svmRFDExtract( varargin )
     sines=p.Results.sines ;
     ret3darray=p.Results.array ;
 
+    if( length(rbins) ~= length(imRawData) )
+        error( 'imRawData and rbins have different length' );
+    endif
+
+    if( length(sines) ~= length(imRawData) )
+        error( 'imRawData and sines have different length' );
+    endif
+
 	h=[];
 	for layer=1:length(rbins)
         if( radius < inf)
