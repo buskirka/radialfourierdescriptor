@@ -1,4 +1,4 @@
-function [ LandsatRawData , training ] = loadL8data ()
+function [ LandsatRawData , training ] = loadL8data (sceneID)
 	if( exist('./corners.mat','file') != 0 )
 		load './corners.mat'
 	end

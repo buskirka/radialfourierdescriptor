@@ -7,7 +7,13 @@ function [svl,svd] = labelRFDFullExtract(DataTraining,DataCells,rbins,sinusoidsC
 			if(max(max(neighborhood(DataTraining,[i,j],100))) > 0); 
 				%printf(['(',num2str(i),',',num2str(j),') ']); 
 				fflush(stdout); 
-				[l,d]=svmRFDExtract(DataTraining,DataCells,100,[i,j],rbins,sinusoidsCell); 
+				[l,d]=svmRFDExtract(
+                    DataCells,
+                    DataTraining,
+                    'radius',100,
+                    'point',[i,j],
+                    'rbins',rbins,
+                    'sines',sinusoidsCell); 
 				svl=[svl;l]; 
 				svd=[svd;d];
 			endif
