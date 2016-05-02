@@ -14,6 +14,6 @@ cp -r rfd $directory
 
 cat rfd/DESCRIPTION | sed "s/%%VERSION%%/$version/g;s/%%DATE%%/$(date +%F)/g;"'s/, parallel (>= 3\.0\.3)//g' > $directory/DESCRIPTION
 
-tar cvzf $directory.tar.gz $directory
+tar cvzf packages/$directory.tar.gz $directory
 
 rm -r $directory
