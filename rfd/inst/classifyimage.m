@@ -1,4 +1,4 @@
-function classy = classifyimage(svm,DataCells,binConfig,pics=false)
+function classy = classifyimage(svm,DataCells,binConfig,normmat=1,pics=false)
 	svl=[]; 
 	svd=[]; 
     classy=[];
@@ -14,6 +14,7 @@ function classy = classifyimage(svm,DataCells,binConfig,pics=false)
                 'radius',radius,
                 'point',[i,j],
                 'array'); 
+            printf(mat2str(size(pile)));
             classymini=[];
             dat=[];
             fakel=[];
@@ -26,6 +27,7 @@ function classy = classifyimage(svm,DataCells,binConfig,pics=false)
                 printf('.'); fflush(stdout);
             endfor
             printf(' * ');
+            dat = dat * normmat ;
             predline=svmpredict( double(fakel), double(dat), svm);
             classymini=reshape(predline,size(pile,1),size(pile,2));
             classy(sizes{1},sizes{2})=classymini ;

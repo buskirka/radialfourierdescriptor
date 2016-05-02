@@ -1,4 +1,4 @@
-function svm = genSVM ( binConfig , im , tr )
+function [svm,svl,svd] = genSVM ( binConfig , im , tr )
     bands=[1:7,10,11];
     
     filt=find(binConfig.bands);
@@ -12,11 +12,6 @@ function svm = genSVM ( binConfig , im , tr )
     		im{imscan}(localbands) ,
     		binConfig.rbins(filt) ,
     		binConfig.sines(filt) ) ;
-    	normmat=max(normmat,max(svdp{imscan}));
-    end
-    normmat=diag(1./normmat);
-    for imscan=1:length(im)
-    	svdp{imscan}=svdp{imscan}*normmat;
     end
     toc;
     
