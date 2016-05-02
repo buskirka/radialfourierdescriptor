@@ -1,16 +1,19 @@
-function classy = classifyimage(svm,DataCells,binConfig,normmat=1,pics=false)
+function classy = classifyimage(svm,DataCells,binConfig,pics=false)
 	svl=[]; 
 	svd=[]; 
     classy=[];
 	fflush(stdout); 
     radius=400;
+    bands=[1:7,10,11];
+    filt=find(binConfig.bands);
+    localbands=bands(filt);
 	for i=(2*radius):(2*radius):(size(DataCells{1},1)-(2*radius)); 
 		for j=(2*radius):(2*radius):(size(DataCells{1},2)-(2*radius)); 
             [~,sizes]=neighborhood(DataCells{1},[i,j],radius);
         	pile=svmRFDExtract(
-                DataCells,
-                'rbins',binConfig.rbins,
-                'sines',binConfig.sines,
+                DataCells(localbands),
+                'rbins',binConfig.rbins(filt),
+                'sines',binConfig.sines(filt),
                 'radius',radius,
                 'point',[i,j],
                 'array'); 
@@ -27,7 +30,6 @@ function classy = classifyimage(svm,DataCells,binConfig,normmat=1,pics=false)
                 printf('.'); fflush(stdout);
             endfor
             printf(' * ');
-            dat = dat * normmat ;
             predline=svmpredict( double(fakel), double(dat), svm);
             classymini=reshape(predline,size(pile,1),size(pile,2));
             classy(sizes{1},sizes{2})=classymini ;
