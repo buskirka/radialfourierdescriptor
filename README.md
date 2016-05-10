@@ -4,11 +4,22 @@ A collection of Octave code designed to extract a descriptor for
 identifying structures in satellite imagery using support vector machines.
 
 To discuss how to utilize this code, we must introduce a few terms.
-## Terminology
+## Basics
+### Landsat 8 data
+We communicate Landsat 8 data in Octave by storing its 11 bands as a 1x11
+cell array whose cells are each grayscale matrices depicting the data.
+
+This may be extracted from Landsat 8 data using the `loadL8data` command
+provided.
 ### Bin Matrix
 A bin matrix is a 2x*N* matrix of nonnegative floating point values,
 increasing in each column. Such an object is here generally interpreted as a collection
 of *N* intervals.
 ### Bin Configuration
 A bin configuration is a `struct` object containing properties `rbins`, `sines`,
-`costs`, and `bands`.
+`costs`, and `bands`. It must correspond to some format of data; in our case,
+the 11 bands of Landsat 8 data.
+
+`rbins` will be a cell array of bin matrices, 
+as described above. It describes a collection of
+annuloid sectors on which the 
