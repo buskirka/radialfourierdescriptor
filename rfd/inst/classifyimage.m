@@ -11,12 +11,12 @@
 ## The support vector machine @var{svm} is an object produced by 
 ## svmtrain, which may be accessed through the genSVM command.
 ##
-## The Landsat @var{data} to be classified should be provided as a 1x11 
+## The Landsat @var{data} to be classified must be provided as a 1x11 
 ## cell array
 ## of matrices all of identical dimensions, which should furthermore
 ## correspond to the @var{conf} provided.
 ##
-## The configuration @var{conf} should be a struct possessing @var{rbins},
+## The configuration @var{conf} must be a struct possessing @var{rbins},
 ## @var{sines}, @var{costs}, and @var{bands}. @var{rbins} must be a
 ## 1x11 cell array whose members are 2xN matrices nonnegative and
 ## strictly increasing in the first dimension, describing which 
@@ -26,6 +26,9 @@
 ## @var{costs} must be a 1x2 matrix of floats greater than 0. @var{bands}
 ## must be a 1x11 matrix, where each nonzero entry indicates that the
 ## respective band should be taken.
+##
+## @var{pics} is an optional boolean option; if true, the classification 
+## image will be shown as it is constructed.
 ##
 ## @seealso{genSVM}
 ## @end deftypefn
