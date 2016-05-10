@@ -1,6 +1,27 @@
+## -*- texinfo -*-
+## @deftypefn {Function File} {@var{RFD} =} RadialFourierDescriptor (@var{radius}, @var{im})
+## @deftypefn {Function File} {@var{RFD} =} RadialFourierDescriptor (@var{radius}, @var{im}, [@var{sines}])
+## Computes a descriptor vector for the image based on the discrete Fourier 
+## transform.
+##
+## The return, @var{RFD}, will generally be a 3-dimensional array 
+## the size MxNx@var{sines}, where [@var{M},@var{N}]==size(@var{im}).
+##
+## @var{radius} must be a scalar or a 1x2 matrix. In the former case,
+## the 1x2 matrix [0,@var{radius}] is used instead of @var{radius} itself.
+## The two entries indicate the inner and outer radii of the annuloid 
+## sectors which will be utilized in the FFT.
+##
+## @var{im} must be a matrix and should contain a grayscale image to be
+## described.
+##
+## @var{sines} is a positive integer greater than 1, and describes how
+## many terms of the FFT should be retained. It is optional, and defaults
+## to 20.
+##
+## @seealso{genSVM, labelRFDFullExtract, classifyimage}
+## @end deftypefn
 function featurearray = RadialFourierDescriptor ( radius , im , sinusoids = 20 )
-% Computes a descriptor vector for the image based on the discrete Fourier 
-% transform.
 	
 	if(size(radius)==[1,1])
 		radius(2)=radius(1);
