@@ -24,5 +24,5 @@ the 11 bands of Landsat 8 data.
 as described above. Each of these describes the collection of annuloid sectors on
 which the Fourier transform will be calculated on their respective layers.
 
-`sines' is a matrix with dimensions equal to the Landsat 8 data, which describes the 
+`sines` is a matrix with dimensions equal to the Landsat 8 data, which describes the 
 number of sines which should be extracted from the Landsat 8 data.
