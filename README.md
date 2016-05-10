@@ -28,4 +28,5 @@ which the Fourier transform will be calculated on their respective layers.
 number of sines which should be extracted from the Landsat 8 data. Each entry should
 be an integer greater than 2.
 
-`costs`
+`costs` should be a 1x2 matrix; the two components indicate cost parameters utilized 
+in LIBSVM's `svmtrain`.
