@@ -1,12 +1,12 @@
 ## -*- texinfo -*-
-## @deftypefn {Function File} {[@var{svm},@var{lbl},@var{rfd}] =} genSVM (@var{conf}, @var{data}, @var{tr})
+## @deftypefn {Function File} {[@var{svm},@var{lbl},@var{dsc}] =} genSVM (@var{conf}, @var{data}, @var{tr})
 ## Generate a support vector machine for the purposes of classifying Landsat data
 ## using training data.
 ##
 ## The output @var{svm} will be a support vector machine object for use
 ## with LIBSVM and svmpredict.
 ## 
-## @var{lbl} and @var{rfd} will be, respectively, the labels and the radial
+## @var{lbl} and @var{dsc} will be, respectively, the labels and the radial
 ## Fourier descriptor vectors for the data points in @var{data} indicated by
 ## @var{tr}. These should be Nx1 and NxM respectively, where N is the number
 ## of training points selected.
