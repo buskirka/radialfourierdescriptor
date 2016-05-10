@@ -29,7 +29,7 @@
 ## @var{data}, and must be populated with training matrices associated with
 ## the respective cell in @var{data}.
 ##
-## @seealso{classifyimage}
+## @seealso{classifyimage, labelRFDFullExtract}
 ## @end deftypefn
 
 function [svm,svl,svd] = genSVM ( binConfig , im , tr )

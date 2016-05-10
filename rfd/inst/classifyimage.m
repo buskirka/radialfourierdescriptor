@@ -30,7 +30,7 @@
 ## @var{pics} is an optional boolean option; if true, the classification 
 ## image will be shown as it is constructed.
 ##
-## @seealso{genSVM}
+## @seealso{genSVM, labelRFDFullExtract}
 ## @end deftypefn
 
 function classy = classifyimage(svm,DataCells,binConfig,pics=false)
