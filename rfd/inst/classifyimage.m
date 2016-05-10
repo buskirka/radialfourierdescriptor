@@ -1,3 +1,35 @@
+## -*- texinfo -*-
+## @deftypefn {Function File} {@var{I} =} classifyimage (@var{svm}, @var{data}, @var{conf})
+## @deftypefnx {Function File} {@var{I} =} classifyimage (@var{svm}, @var{data}, @var{conf}, [@var{pics}])
+## Classify a Landsat scene using the radial Fourier descriptor 
+## associated with the configuration @var{conf} associated with the 
+## support vector machine @var{svm} from the data set @var{data}.
+##
+## The return image @var{I} will be a matrix the same size as the 
+## Landsat scene composed of the classes predicted by @var{svm}.
+##
+## The support vector machine @var{svm} is an object produced by 
+## svmtrain, which may be accessed through the genSVM command.
+##
+## The Landsat @var{data} to be classified should be provided as a 1x11 
+## cell array
+## of matrices all of identical dimensions, which should furthermore
+## correspond to the @var{conf} provided.
+##
+## The configuration @var{conf} should be a struct possessing @var{rbins},
+## @var{sines}, @var{costs}, and @var{bands}. @var{rbins} must be a
+## 1x11 cell array whose members are 2xN matrices nonnegative and
+## strictly increasing in the first dimension, describing which 
+## annuloid sectors are to be processed. @var{sines} must be a 
+## 1x11 matrix consisting of integers greater than 1 (and preferably higher),
+## describing how many of the terms of the FFT should be retained.
+## @var{costs} must be a 1x2 matrix of floats greater than 0. @var{bands}
+## must be a 1x11 matrix, where each nonzero entry indicates that the
+## respective band should be taken.
+##
+## @seealso{genSVM}
+## @end deftypefn
+
 function classy = classifyimage(svm,DataCells,binConfig,pics=false)
 	svl=[]; 
 	svd=[]; 
