@@ -20,6 +20,9 @@ A bin configuration is a `struct` object containing properties `rbins`, `sines`,
 `costs`, and `bands`. It must correspond to some format of data; in our case,
 the 11 bands of Landsat 8 data.
 
-`rbins` will be a cell array of bin matrices, 
+`rbins` will be a cell array (the size of the Landsat data) of bin matrices, 
 as described above. Each of these describes the collection of annuloid sectors on
 which the Fourier transform will be calculated on their respective layers.
+
+`sines' is a matrix with dimensions equal to the Landsat 8 data, which describes the 
+number of sines which should be extracted from the Landsat 8 data.
