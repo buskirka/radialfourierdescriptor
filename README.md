@@ -7,7 +7,9 @@ To discuss how to utilize this code, we must introduce a few terms.
 ## Basics
 ### Landsat 8 data
 We communicate Landsat 8 data in Octave by storing its 11 bands as a 1x11
-cell array whose cells are each grayscale matrices depicting the data.
+cell array whose cells are each grayscale matrices depicting the data, a
+Landsat **scene**. When referring to a cell array populated with Landsat 
+scenes, we refer to it as a **sceneset**.
 
 This may be extracted from Landsat 8 data using the `loadL8data` command
 provided.
@@ -29,4 +31,6 @@ number of sines which should be extracted from the Landsat 8 data. Each entry sh
 be an integer greater than 2.
 
 `costs` should be a 1x2 matrix; the two components indicate cost parameters utilized 
-in LIBSVM's `svmtrain` for the two training classes.
+in LIBSVM's `svmtrain` for the two training classes, 128 and 255.
+
+
